@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="NDownload">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../eclipse/"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="${dir.buildfile}/.."/>
+    <property name="dir.jarfile" value="${dir.buildfile}"/>
+    <path id="NDownload.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="libs/json-simple-1.1.jar"/>
+        <pathelement location="libs/org-apache-commons-codec.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.ucls"/>
+                <exclude name="**/*.useq"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="NDownload.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="ClientMain">
+        <java classname="ClientMain" failonerror="true" fork="yes">
+            <classpath refid="NDownload.classpath"/>
+        </java>
+    </target>
+    <target name="ServerMain">
+        <java classname="ServerMain" failonerror="true" fork="yes">
+            <classpath refid="NDownload.classpath"/>
+        </java>
+    </target>
+    <target name="NServer">
+        <java classname="NServer" failonerror="true" fork="yes">
+            <classpath refid="NDownload.classpath"/>
+        </java>
+    </target>
+    <target name="NClient">
+        <java classname="NClient" failonerror="true" fork="yes">
+            <classpath refid="NDownload.classpath"/>
+        </java>
+    </target>
+              	<target name="Client">
+              	        <jar destfile="${dir.jarfile}/NClient.jar">
+              	            <manifest>
+              	                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+              	                <attribute name="Rsrc-Main-Class" value="NClient"/>
+              	                <attribute name="Class-Path" value="."/>
+              	                <attribute name="Rsrc-Class-Path" value="./ json-simple-1.1.jar org-apache-commons-codec.jar"/>
+              	            </manifest>
+              	            <zipfileset src="jar-in-jar-loader.zip"/>
+              	            <fileset dir="${dir.jarfile}/bin"/>
+              	            <zipfileset dir="${dir.jarfile}/libs" includes="json-simple-1.1.jar"/>
+              	            <zipfileset dir="${dir.jarfile}/libs" includes="org-apache-commons-codec.jar"/>
+              	        </jar>
+              	    </target>
+              	 <target name="Server">
+              	        <jar destfile="${dir.jarfile}/NServer.jar">
+              	            <manifest>
+              	                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+              	                <attribute name="Rsrc-Main-Class" value="NServer"/>
+              	                <attribute name="Class-Path" value="."/>
+              	                <attribute name="Rsrc-Class-Path" value="./ json-simple-1.1.jar org-apache-commons-codec.jar"/>
+              	            </manifest>
+              	            <zipfileset src="jar-in-jar-loader.zip"/>
+              	            <fileset dir="${dir.jarfile}/bin"/>
+              	            <zipfileset dir="${dir.jarfile}/libs" includes="json-simple-1.1.jar"/>
+              	            <zipfileset dir="${dir.jarfile}/libs" includes="org-apache-commons-codec.jar"/>
+              	        </jar>
+              	    </target>
+</project>

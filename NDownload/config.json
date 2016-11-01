@@ -1,0 +1,11 @@
+{
+  "homedir": "/home/y2016/fall/cs6377/vkuppili/Shard1",
+  "listenport": "26000",
+  "metadatafile": "the file that stores the metadata corresponding to the files and replicates stored by the shard.",
+  "shard1ip": "127.0.1.12",
+  "shard1port": "26000",
+  "shard2ip": "IP address of shard 2. Client and shard use this information.",
+  "shard2port": "Port of shard 2. Client and shard use this information",
+  "shard3ip": "IP address of shard 3. Client uses this information.",
+  "shard3port": "Port of shard 3. Client uses this information."
+}
